@@ -21,6 +21,12 @@ const Blog = styled.div`
   padding: 3rem 1rem;
 `;
 
+const Anchor = styled.a`
+  text-decoration: underline;
+  cursor: pointer;
+  color: lightblue;
+`;
+
 interface BlogProps {
   title: string;
   content: string;
@@ -40,7 +46,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogs }) => {
             <React.Fragment key={v4()}>
               <Link href={blog.href}>
                 <h2>
-                  <a>{blog.title}</a>
+                  <Anchor>{blog.title}</Anchor>
                 </h2>
               </Link>
               {blog.content}
