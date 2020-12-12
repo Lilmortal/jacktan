@@ -3,12 +3,8 @@ import React from "react";
 import styled from "styled-components";
 import Navigation from "../components/Navigation";
 import PageBody from "../components/PageBody";
-import fs from "fs";
-import path from "path";
-import getConfig from "next/config";
 import { v4 } from "uuid";
-
-const { serverRuntimeConfig } = getConfig();
+import readFile from "../utils/readFile";
 
 const CardContainer = styled.div`
   display: flex;
@@ -113,11 +109,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ portfolios }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const portfolioFile = await fs.promises.readFile(
-    path.join(serverRuntimeConfig.PROJECT_ROOT, "/contents/portfolio.json")
-  );
-
-  const portfolios = await portfolioFile.toString();
+  const portfolios = await readFile("/contents/portfolio.json");
 
   return {
     props: { portfolios: JSON.parse(portfolios) },

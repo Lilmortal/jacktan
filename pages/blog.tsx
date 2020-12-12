@@ -4,11 +4,10 @@ import Link from "next/link";
 import styled from "styled-components";
 import Navigation from "../components/Navigation";
 import PageBody from "../components/PageBody";
-import getConfig from "next/config";
-import path from "path";
-import fs from "fs";
 import removeMarkdown from "remove-markdown";
 import { v4 } from "uuid";
+import readDir from "../utils/readDir";
+import readFile from "../utils/readFile";
 
 const BlogContainer = styled.div`
   display: flex;
@@ -22,8 +21,6 @@ const Blog = styled.div`
   align-self: flex-start;
   padding: 3rem 1rem;
 `;
-
-const { serverRuntimeConfig } = getConfig();
 
 interface BlogProps {
   title: string;
@@ -63,20 +60,11 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogs }) => {
 };
 
 export const getStaticProps: GetStaticProps<BlogPageProps> = async () => {
-  const fileNames = await fs.promises.readdir(
-    path.join(serverRuntimeConfig.PROJECT_ROOT, "contents/posts")
-  );
+  const fileNames = await readDir("contents/posts");
 
   const blogs: BlogProps[] = await Promise.all(
     fileNames.map(async (fileName) => {
-      const postFile = await fs.promises.readFile(
-        path.join(
-          serverRuntimeConfig.PROJECT_ROOT,
-          `/contents/posts/${fileName}`
-        )
-      );
-
-      const post = await postFile.toString();
+      const post = await readFile(`/contents/posts/${fileName}`);
 
       const title = removeMarkdown(
         post.substring(0, post.indexOf("\n"))
