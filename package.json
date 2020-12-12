@@ -2,12 +2,12 @@
   "name": "jacktan",
   "version": "1.0.0",
   "description": "A personal portfolio website",
-  "main": "index.js",
   "repository": "https://github.com/Lilmortal/jacktan.git",
   "author": "Jack Tan <jacktan165@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "next dev"
+    "start": "next dev",
+    "build": "next build && next export"
   },
   "dependencies": {
     "next": "^10.0.3",
