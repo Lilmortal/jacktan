@@ -12,8 +12,9 @@ export interface PageBodyProps {
   direction?: "row" | "column";
 }
 
-const PageBody: React.FC<PageBodyProps> = ({ direction = "row", children }) => (
-  <PageBodyStyle direction={direction}>{children}</PageBodyStyle>
-);
+const PageBody: React.FC<PageBodyProps> = ({
+  direction = "column",
+  children,
+}) => <PageBodyStyle direction={direction}>{children}</PageBodyStyle>;
 
 export default PageBody;

@@ -1,7 +1,13 @@
+import { GetStaticProps } from "next";
 import React from "react";
 import styled from "styled-components";
 import Navigation from "../components/Navigation";
 import PageBody from "../components/PageBody";
+import fs from "fs";
+import path from "path";
+import getConfig from "next/config";
+
+const { serverRuntimeConfig } = getConfig();
 
 const CardContainer = styled.div`
   display: flex;
@@ -54,9 +60,36 @@ const List = styled.li`
   }
 `;
 
-const PortfolioPage: React.FC<Record<string, never>> = () => {
+interface ProjectProps {
+  name?: string;
+  descriptions: string[];
+}
+
+interface PortfolioProps {
+  name: string;
+  projects: ProjectProps[];
+}
+
+interface PortfolioPageProps {
+  portfolios: PortfolioProps[];
+}
+
+const Project: React.FC<ProjectProps> = ({ name, descriptions }) => (
+  <>
+    {name && <H3>{name}</H3>}
+    <Paragraph>
+      <ul>
+        {descriptions.map((description) => (
+          <List>{description}</List>
+        ))}
+      </ul>
+    </Paragraph>
+  </>
+);
+
+const PortfolioPage: React.FC<PortfolioPageProps> = ({ portfolios }) => {
   return (
-    <PageBody direction="column">
+    <PageBody>
       <Navigation
         links={[
           { href: "/", text: "Works" },
@@ -75,175 +108,30 @@ const PortfolioPage: React.FC<Record<string, never>> = () => {
       </Banner>
       <CardContainer>
         <H2>Projects</H2>
-        <Card>
-          <CardContent>
-            <H2>Air New Zealand</H2>
-            <H3>Star Alliance Redemption</H3>
-            <Paragraph>
-              <ul>
-                <List>
-                  Built from the ground up using React and Typescript.
-                </List>
-                <List>
-                  Closely involved with UX whilst developing the UI layout for
-                  the search for flight page, select flight page, and the
-                  confirmation page while adhering to the design standards.
-                </List>
-                <List>
-                  Worked with back end developers to decide the API format.
-                </List>
-                <List>
-                  Worked with automated testers on writing automated tests.
-                </List>
-                <List>
-                  Able to deliver the project on-time on a strict hard deadline.
-                </List>
-              </ul>
-            </Paragraph>
-            <H3>Inflight Wifi Payment</H3>
-            <Paragraph>
-              <ul>
-                <List>
-                  Built from the ground up using React and Typescript.
-                </List>
-                <List>
-                  Worked closely with third party designers and AirNZ designers
-                  to follow a standard.
-                </List>
-                <List>Made sure that it is PCI Compliant.</List>
-                <List>
-                  Fixed performance issues and dealing with unreliable
-                  connections.
-                </List>
-                <List>Worked closely with the team using the Scrum model.</List>
-              </ul>
-            </Paragraph>
-            <H3>Baggage Transit Unit Kiosk</H3>
-            <Paragraph>
-              <ul>
-                <List>
-                  Refactored the codebase by removing unused code, added unit
-                  and integration tests, and set up the file architecture.
-                </List>
-                <List>Built using React and Typescript.</List>
-                <List>
-                  Worked closely with UX to set up the design standards for
-                  Kiosk.
-                </List>
-              </ul>
-            </Paragraph>
-            <H3>Unison Standard</H3>
-            <Paragraph>
-              <ul>
-                <List>
-                  An early contributor to Air New Zealand new React common
-                  repositories, which is currently being used by multiple teams.
-                </List>
-              </ul>
-            </Paragraph>
-            <H3>ET-Navigator</H3>
-            <Paragraph>
-              <ul>
-                <List>Built using React, React-Router, and Redux.</List>
-                <List>
-                  Developed a REST wrapper around the current SOAP services
-                  using Java and the SpringBoot framework.
-                </List>
-                <List>
-                  Worked closely with project managers and business analysts
-                  around a vague requirement.
-                </List>
-              </ul>
-            </Paragraph>
-            <H3>Flight Booking/Post Booking</H3>
-            <Paragraph>
-              <ul>
-                <List>
-                  Maintained the current booking website which is primarily
-                  designed in Knockout, Mootools, and JSP on the front end, and
-                  Stripes as the Java framework on the back-end.
-                </List>
-                <List>
-                  Worked closely with the team using the Kanban model.
-                </List>
-                <List>
-                  Developed several React components by wrapping them inside
-                  Knockout.
-                </List>
-              </ul>
-            </Paragraph>
-            <H3>Recommendation Project</H3>
-            <Paragraph>
-              <ul>
-                <List>
-                  Built using Java and Apache Wicket as the framework, with
-                  Jetty as the web server. Hosted on premise.
-                </List>
-              </ul>
-            </Paragraph>
-            <H3>Air Forms</H3>
-            <Paragraph>
-              <ul>
-                <List>
-                  Built using ASP.NET MVC4 and Bootstrap, and IIS as the web
-                  server. Hosted on premise.
-                </List>
-              </ul>
-            </Paragraph>
-            <Paragraph>
-              <ul>
-                <List>
-                  Mentored graduates around the Javascript ecosystem. Introduced
-                  them to our design system, and code review their pull
-                  requests.
-                </List>
-                <List>
-                  Actively contributed to the front-end development guild by
-                  highlighting the latest updates on the Javascript/React
-                  ecosystem.
-                </List>
-                <List>
-                  Developed and maintained several SQL Reports and Stored
-                  Procedures to various departments using SQL Server Reporting
-                  Services.
-                </List>
-              </ul>
-            </Paragraph>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent>
-            <H2>Food Budget</H2>
-            <Paragraph>
-              Developed the website using Next.js, React, Typescript, Node,
-              Prisma ORM, Apollo Client, Apollo Server, Terraform, GraphQL
-            </Paragraph>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent>
-            <H2>Youngi Kim</H2>
-            <Paragraph>
-              Website I made for my friend. Developed using Next.js, Typescript,
-              React, with Strapi as the headless CMS.
-            </Paragraph>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent>
-            <H2>BKA</H2>
-            <Paragraph>
-              Maintain several websites like the Kauri Dieback, which were made
-              in ASP.NET MVC4, using Umbraco as our CMS.
-            </Paragraph>
-          </CardContent>
-        </Card>
+        {portfolios.map((portfolio) => (
+          <Card>
+            <CardContent>
+              {portfolio.projects.map((project) => (
+                <Project {...project} />
+              ))}
+            </CardContent>
+          </Card>
+        ))}
       </CardContainer>
     </PageBody>
   );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
+  const portfolios = fs
+    .readFileSync(
+      path.join(serverRuntimeConfig.PROJECT_ROOT, "/contents/portfolio.json")
+    )
+    .toString();
+
+  return {
+    props: { portfolios: JSON.parse(portfolios) },
+  };
 };
 
 export default PortfolioPage;
