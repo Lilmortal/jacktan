@@ -19,7 +19,8 @@
       "es2015"
     ],
     "jsx": "preserve",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "noEmit": true
   },
   "include": [
     "next-env.d.ts",
