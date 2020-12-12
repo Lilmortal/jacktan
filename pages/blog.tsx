@@ -69,7 +69,14 @@ export const getStaticProps: GetStaticProps<BlogPageProps> = async () => {
       const title = removeMarkdown(
         post.substring(0, post.indexOf("\n"))
       ).trim();
-      const content = removeMarkdown(post.substring(post.indexOf("\n"))).trim();
+      let content = removeMarkdown(post.substring(post.indexOf("\n")))
+        .trim()
+        .substring(0, 100);
+
+      if (content.length > 100) {
+        content += "...";
+      }
+
       const href = `posts/${fileName.substring(0, fileName.indexOf(".md"))}`;
       return { title, content, href };
     })
