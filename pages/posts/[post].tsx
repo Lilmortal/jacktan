@@ -4,8 +4,7 @@ import fs from "fs";
 import path from "path";
 import getConfig from "next/config";
 import ReactMarkdown from "react-markdown";
-import PageBody from "../../components/PageBody";
-import Navigation from "../../components/Navigation";
+import Page from "../../templates/Page";
 
 const { serverRuntimeConfig } = getConfig();
 
@@ -14,15 +13,9 @@ interface PostProps {
 }
 
 const Post: React.FC<PostProps> = ({ post }) => (
-  <PageBody>
-    <Navigation
-      links={[
-        { href: "/", text: "Works" },
-        { href: "/blog", text: "Blog" },
-      ]}
-    />
+  <Page>
     <ReactMarkdown>{post}</ReactMarkdown>
-  </PageBody>
+  </Page>
 );
 
 const getMdFileName = (fileName: string) =>

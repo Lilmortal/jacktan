@@ -2,12 +2,11 @@ import React from "react";
 import { GetStaticProps } from "next";
 import Link from "next/link";
 import styled from "styled-components";
-import Navigation from "../components/Navigation";
-import PageBody from "../components/PageBody";
 import removeMarkdown from "remove-markdown";
 import { v4 } from "uuid";
 import readDir from "../utils/readDir";
 import readFile from "../utils/readFile";
+import Page from "../templates/Page";
 
 const BlogContainer = styled.div`
   display: flex;
@@ -34,13 +33,7 @@ interface BlogPageProps {
 
 const BlogPage: React.FC<BlogPageProps> = ({ blogs }) => {
   return (
-    <PageBody>
-      <Navigation
-        links={[
-          { href: "/", text: "Works" },
-          { href: "/blog", text: "Blog" },
-        ]}
-      />
+    <Page>
       <BlogContainer>
         <Blog>
           {blogs.map((blog) => (
@@ -55,7 +48,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogs }) => {
           ))}
         </Blog>
       </BlogContainer>
-    </PageBody>
+    </Page>
   );
 };
 

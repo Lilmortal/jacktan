@@ -1,10 +1,9 @@
 import { GetStaticProps } from "next";
 import React from "react";
 import styled from "styled-components";
-import Navigation from "../components/Navigation";
-import PageBody from "../components/PageBody";
 import { v4 } from "uuid";
 import readFile from "../utils/readFile";
+import Page from "../templates/Page";
 
 const CardContainer = styled.div`
   display: flex;
@@ -74,13 +73,7 @@ const Project: React.FC<ProjectProps> = ({ name, descriptions }) => (
 
 const PortfolioPage: React.FC<PortfolioPageProps> = ({ portfolios }) => {
   return (
-    <PageBody>
-      <Navigation
-        links={[
-          { href: "/", text: "Works" },
-          { href: "/blog", text: "Blog" },
-        ]}
-      />
+    <Page>
       <Banner>
         <h1>Hello. My name is Jack Tan.</h1>
         <p>
@@ -104,7 +97,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ portfolios }) => {
           </Card>
         ))}
       </CardContainer>
-    </PageBody>
+    </Page>
   );
 };
 
