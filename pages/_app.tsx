@@ -17,6 +17,10 @@ body {
   color: var(--text-color);
   font-family: "Segoe UI", sans-serif;
 }
+
+h1 {
+  font-size: 4rem;
+}
 `;
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => (

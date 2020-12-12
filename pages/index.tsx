@@ -42,16 +42,6 @@ const Banner = styled.div`
   padding: 3rem 0 3rem calc(50%);
 `;
 
-const H1 = styled.h1`
-  font-size: 4rem;
-`;
-
-const H2 = styled.h2``;
-
-const H3 = styled.h3``;
-
-const Paragraph = styled.p``;
-
 const List = styled.li`
   list-style-type: none;
 
@@ -77,7 +67,7 @@ interface PortfolioPageProps {
 
 const Project: React.FC<ProjectProps> = ({ name, descriptions }) => (
   <>
-    {name && <H3>{name}</H3>}
+    {name && <h3>{name}</h3>}
     <ul>
       {descriptions.map((description) => (
         <List key={v4()}>{description}</List>
@@ -96,21 +86,19 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ portfolios }) => {
         ]}
       />
       <Banner>
-        <H1>Hello. My name is Jack Tan.</H1>
-        <Paragraph>
+        <h1>Hello. My name is Jack Tan.</h1>
+        <p>
           Full stack developer with a strong focus in Front end. Experienced
           with Javascript (React, Redux), Node, and Java.
-        </Paragraph>
-        <Paragraph>
-          Looking to join a team that does interesting projects.
-        </Paragraph>
+        </p>
+        <p>Looking to join a team that does interesting projects.</p>
       </Banner>
       <CardContainer>
-        <H2>Projects</H2>
+        <h2>Projects</h2>
         {portfolios.map((portfolio) => (
           <Card key={portfolio.name}>
             <CardContent>
-              <H2>{portfolio.name}</H2>
+              <h2>{portfolio.name}</h2>
               {portfolio.projects.map((project) => (
                 <React.Fragment key={v4()}>
                   <Project {...project} />
@@ -125,11 +113,11 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ portfolios }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const portfolios = fs
-    .readFileSync(
-      path.join(serverRuntimeConfig.PROJECT_ROOT, "/contents/portfolio.json")
-    )
-    .toString();
+  const portfolioFile = await fs.promises.readFile(
+    path.join(serverRuntimeConfig.PROJECT_ROOT, "/contents/portfolio.json")
+  );
+
+  const portfolios = await portfolioFile.toString();
 
   return {
     props: { portfolios: JSON.parse(portfolios) },

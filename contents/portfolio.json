@@ -26,8 +26,8 @@
                 "name": "Baggage Transit Unit Kiosk",
                 "descriptions": [
                     "Refactored the codebase by removing unused code, added unit and integration tests, and set up the file architecture.",
-                "Built using React and Typescript.",
-                        "Worked closely with UX to set up the design standards for Kiosk."
+                    "Built using React and Typescript.",
+                    "Worked closely with UX to set up the design standards for Kiosk."
                 ]
             },
             {
