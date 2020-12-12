@@ -6,6 +6,7 @@ import PageBody from "../components/PageBody";
 import fs from "fs";
 import path from "path";
 import getConfig from "next/config";
+import { v4 } from "uuid";
 
 const { serverRuntimeConfig } = getConfig();
 
@@ -77,13 +78,11 @@ interface PortfolioPageProps {
 const Project: React.FC<ProjectProps> = ({ name, descriptions }) => (
   <>
     {name && <H3>{name}</H3>}
-    <Paragraph>
-      <ul>
-        {descriptions.map((description) => (
-          <List>{description}</List>
-        ))}
-      </ul>
-    </Paragraph>
+    <ul>
+      {descriptions.map((description) => (
+        <List key={v4()}>{description}</List>
+      ))}
+    </ul>
   </>
 );
 
@@ -109,10 +108,13 @@ const PortfolioPage: React.FC<PortfolioPageProps> = ({ portfolios }) => {
       <CardContainer>
         <H2>Projects</H2>
         {portfolios.map((portfolio) => (
-          <Card>
+          <Card key={portfolio.name}>
             <CardContent>
+              <H2>{portfolio.name}</H2>
               {portfolio.projects.map((project) => (
-                <Project {...project} />
+                <React.Fragment key={v4()}>
+                  <Project {...project} />
+                </React.Fragment>
               ))}
             </CardContent>
           </Card>

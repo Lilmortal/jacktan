@@ -28,7 +28,7 @@ const NavLink = styled.a`
 const Navigation: React.FC<NavigationProps> = ({ links }) => (
   <NavigationStyle>
     {links.map((link) => (
-      <Nav>
+      <Nav key={link.href}>
         <Link href={link.href}>
           <NavLink>{link.text}</NavLink>
         </Link>
